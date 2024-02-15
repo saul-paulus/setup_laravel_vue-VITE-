@@ -1,9 +1,16 @@
 <template>
-    <router-view></router-view>
+  <router-view></router-view>
+
+  <pre>{{ user }}</pre>
 </template>
 
 <script>
-    export default {
-        name: "App"
-    }
+import { mapState } from "vuex";
+
+export default {
+  name: "App",
+  computed: {
+    ...mapState(["user"]),
+  },
+};
 </script>
