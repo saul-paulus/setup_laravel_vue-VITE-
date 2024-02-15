@@ -16,7 +16,7 @@
 
 <body id="antialiased">
     <div id="app">
-        <home />
+        <app />
     </div>
 
     @vite('resources/js/app.js')
