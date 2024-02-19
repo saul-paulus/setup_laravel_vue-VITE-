@@ -1,7 +1,5 @@
 <template>
   <router-view></router-view>
-
-  <pre>{{ user }}</pre>
 </template>
 
 <script>
