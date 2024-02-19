@@ -33,6 +33,7 @@ const routes = [
     path: "/auth",
     redirect: "/auth/login",
     name: "auth",
+    meta: { isGuest: true },
     component: AuthLayout,
     children: [
       {
@@ -52,7 +53,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !Store.state.user.token) {
     next({ name: "Login" });
-  } else if (store.state.user.token && to.name === "Login") {
+  } else if (store.state.user.token && to.meta.isGuest) {
     next({ name: "Dashboard" });
   } else {
     next();

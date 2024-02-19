@@ -11,7 +11,7 @@
       <h2
         class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
       >
-        Sign in to your account
+        Masuk dengan akun anda
       </h2>
     </div>
 
@@ -21,19 +21,18 @@
           <label
             for="email"
             class="block text-sm font-medium leading-6 text-gray-900"
-            >Email address</label
+            >Personal Number (PN)</label
           >
           <div class="mt-2">
             <input
-              id="email"
-              name="email"
-              type="email"
-              autocomplete="email"
+              id="personalNumber"
+              name="personalNumber"
+              type="text"
+              autocomplete="cc-number"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </div>
         </div>
-
         <div>
           <div class="flex items-center justify-between">
             <label
@@ -41,13 +40,6 @@
               class="block text-sm font-medium leading-6 text-gray-900"
               >Password</label
             >
-            <div class="text-sm">
-              <a
-                href="#"
-                class="font-semibold text-indigo-600 hover:text-indigo-500"
-                >Forgot password?</a
-              >
-            </div>
           </div>
           <div class="mt-2">
             <input
@@ -71,12 +63,12 @@
       </form>
 
       <p class="mt-10 text-center text-sm text-gray-500">
-        Not a member?
+        Jika Belum Punya Akun Hub:
         {{ " " }}
         <a
           href="#"
           class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >Start a 14 day free trial</a
+          >IT Suport Bringin Gigantara</a
         >
       </p>
     </div>
