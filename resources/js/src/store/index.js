@@ -4,11 +4,10 @@ const store = createStore({
   state: {
     user: {
       data: {
-        idPersonal: "007100",
+        personalNumber: "007100",
         username: "Saul Paulus",
-        imgUrl: "https://flowbite.com/docs/images/logo.svg",
       },
-      token: "1219082ndhdua121",
+      token: null,
     },
   },
   getters: {},

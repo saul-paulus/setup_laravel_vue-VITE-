@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/{any}', function () {
     return view('app');
 })->where('any', '.*');
+
+
+// Route API
+Route::prefix('api')->group(function () {
+    require __DIR__ . '/api.php';
+});
