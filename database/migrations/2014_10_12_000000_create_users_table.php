@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('codeuker')->nullable();
             $table->string('nm_uker')->nullable();
             $table->string('jabatan')->nullable();
-            $table->rememberToken()->nullable();
+            $table->text('remember_token')->nullable();
             $table->timestamps();
         });
     }

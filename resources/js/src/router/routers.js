@@ -4,7 +4,6 @@ import AuthLayout from "../component/AuthLayout.vue";
 import Login from "../views/auth/Login.vue";
 import Dashboard from "../views/dashboard/Dashboard.vue";
 import Users from "../views/Users/Users.vue";
-import Store from "../store";
 import store from "../store";
 
 const routes = [
@@ -51,13 +50,14 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !Store.state.user.token) {
+  if (to.meta.requiresAuth && !store.state.user.token) {
     next({ name: "Login" });
   } else if (store.state.user.token && to.meta.isGuest) {
     next({ name: "Dashboard" });
   } else {
     next();
   }
+
 });
 
 export default router;

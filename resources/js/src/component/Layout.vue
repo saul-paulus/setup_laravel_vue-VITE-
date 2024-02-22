@@ -14,8 +14,8 @@
                 <!-- Dropdown menu -->
                 <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
                     <div class="px-4 py-3">
-                        <span class="block text-sm text-gray-900 dark:text-white">Saul Paulus</span>
-                        <span class="block text-sm text-gray-500 truncate dark:text-gray-400">007100</span>
+                        <span class="block text-sm text-gray-900 dark:text-white">{{ userNow().username }}</span>
+                        <span class="block text-sm text-gray-500 truncate dark:text-gray-400">{{ userNow().personal_number }}</span>
                     </div>
                     <ul class="py-2" aria-labelledby="user-menu-button">
                         <li>
@@ -48,7 +48,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>
                         </button>
-                        <div id="mega-menu-icons-dropdown" class="absolute z-10 grid hidden w-auto grid-cols-2 text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 md:grid-cols-3 dark:bg-gray-700">
+                        <div id="mega-menu-icons-dropdown" class="absolute z-10 w-auto grid-cols-2 text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 md:grid-cols-3 dark:bg-gray-700">
                             <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
                                 <ul class="space-y-4" aria-labelledby="mega-menu-icons-dropdown-button">
                                     <li>
@@ -96,6 +96,7 @@
         </div>
     </nav>
 </header>
+
 <router-view></router-view>
 <footer class="bg-white dark:bg-gray-900 m-4 my-6">
     <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
@@ -105,47 +106,57 @@
 </footer>
 </template>
 
+
 <script>
-import {
-    useStore
-} from "vuex";
-import {
-    computed
-} from "vue";
-import {
-    useRoute
-} from "vue-router";
 
-const navigation = [{
-        name: "Dashboard",
-        to: {
-            name: "Dashboard"
-        }
-    },
-    {
-        name: "Users",
-        to: {
-            name: "Users"
-        }
-    },
-];
+  import { useStore } from "vuex";
+  import { useRouter } from "vue-router";
+  import {  onMounted } from "vue";
 
-export default {
-    setup() {
-        const store = useStore();
-        const router = useRoute();
+  export default {
+    name:"Login",
+    setup(){
+      const store = useStore();
+      const router = useRouter();
 
-        function logout() {
-            store.commit("logout");
-            router.push({
-                name: "Login",
-            });
-        }
-        return {
-            user: computed(() => store.state.user.data),
-            navigation,
-            logout,
+      const logout = () => {
+        store.dispatch("logout")
+        .then(()=> {
+          router.push({
+            name:"Login"
+          })
+        })
+      };
+
+      const isAccessTokenAvailable = () => {
+        const reqToken = {
+          'access_token' : localStorage.getItem('access_token')
         };
-    },
-};
+        store.dispatch('checkToken', reqToken)
+        .then(()=>{
+
+        });
+      };
+
+      const getUser = () => {
+        store.dispatch('getUser');
+      };
+
+      const userNow = ()=>{
+        return store.state.user.data;
+      }
+
+      onMounted(() => {
+        isAccessTokenAvailable();
+        getUser();
+      });
+
+
+      return {
+        logout,
+        userNow
+      }
+    }
+  }
+
 </script>

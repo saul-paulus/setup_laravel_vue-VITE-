@@ -32,10 +32,6 @@ class User extends Authenticatable implements JWTSubject
     ];
 
 
-    // protected $casts = [
-    //     'password' => 'hashed',
-    // ];
-
     public function getJWTIdentifier()
     {
         return $this->getKey();

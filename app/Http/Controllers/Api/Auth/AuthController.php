@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Helpers\ApiResponseHelpers;
 use Exception;
 use App\Models\User;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
+use App\Http\Responses\ApiErrorResponse;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -34,8 +36,8 @@ class AuthController extends Controller
 
                 if(!$pegawai){
                     return response()->json([
-                        'status' => 'fail',
-                        'statusCode'=> 402,
+                        'status' => 'error',
+                        'statusCode'=> 422,
                         'message' => 'Personal Number dan password tidak sesuai',
                     ]);
                 }
@@ -54,16 +56,16 @@ class AuthController extends Controller
             }
 
             if(!$this->guard($credential)){
-                return response()->json([
-                    'status' => 'fail',
-                    'statusCode'=> 402,
-                    'message' => 'Personal Number dan password tidak sesuai',
-                ]);
+                return ApiResponseHelpers::errorResponseJson('error', 'Personal Number and Password invalid', 422);
             }
 
             $user = Auth::user();
 
             $token = JWTAuth::attempt($credential);
+
+            User::where('personal_number', $user->personal_number)->update([
+                'remember_token' => $token
+            ]);
 
             if($user){
                 return response()->json([
@@ -76,16 +78,40 @@ class AuthController extends Controller
                 ]);
             }
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'error',
-                'statusCode'=> 500,
-                'message' => 'Error: '. $e->getMessage(),
-            ]);
+            return ApiResponseHelpers::errorResponseJson('error', 'Error: '.$e->getMessage(), 500);
         }
     }
 
     private function guard($credential)
     {
         return Auth::attempt(array('personal_number'=> $credential['personal_number'], 'password'=> $credential['password']));
+    }
+
+
+    public function authLogout()
+    {
+        JWTAuth::invalidate();
+
+        return ApiResponseHelpers::successResponseJson('success', 'Logged out Successfully',[], 200);
+    }
+
+    public function checkToken(Request $request)
+    {
+        $token = $request->input('access_token');
+
+        $user = Auth::user();
+
+        if($user->remember_token == $token){
+            return ApiResponseHelpers::successResponseJson('success', 'Token Sesuai',[], 200);
+        }else{
+            return ApiResponseHelpers::errorResponseJson('error', 'Token Tidak Sesuai',422);
+        }
+    }
+
+    public function getUser(Request $request)
+    {
+        $user = $request->user();
+
+        return ApiResponseHelpers::successResponseJson('success', 'Berhasil mendapatkan data user', $user, 200);
     }
 }

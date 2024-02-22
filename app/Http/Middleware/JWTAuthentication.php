@@ -35,9 +35,9 @@ class JWTAuthentication
                 $newToken = JWTAuth::parseToken()->refresh();
                 return response()->json(['success' => false, 'token' => $newToken, 'status' => 'Expired'], 200);
             }else if($e instanceof TokenInvalidException){
-                return response()->json(['success' => false, 'message' => 'token invalid'], 401);
+                return ApiResponseHelpers::errorResponseJson('error', 'Token Invalid', 401);
             }else{
-                return response()->json(['success' => false, 'message' => 'token not found'], 401);
+                return ApiResponseHelpers::errorResponseJson('error', 'Token Not Found', 401);
             }
         }
         return $next($request);

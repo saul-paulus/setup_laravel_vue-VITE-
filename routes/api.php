@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +27,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Authentication
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\Auth'], function () {
     Route::post('/gate/auth/login', 'AuthController@authLogin');
+});
+
+Route::middleware('jwtauth')->group(function() {
+    Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\Auth'], function () {
+        Route::get('/gate/auth/logout', 'AuthController@authLogout');
+        Route::post('/gate/auth/check-token','AuthController@checkToken');
+        Route::get('/gate/auth/user','AuthController@getUser');
+    });
+
+});
+
+// Manajement User
+Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\MenageUser'], function () {
+    Route::get('/data/user_menage/user','UsersController@getUser');
 });
