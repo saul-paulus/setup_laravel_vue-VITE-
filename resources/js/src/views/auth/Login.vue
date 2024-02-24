@@ -1,77 +1,101 @@
 <template>
+  <main>
+      <div class="container">
+          <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center">
+              <div class="container">
+                  <div class="row justify-content-center">
+                      <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                          <div class="d-flex justify-content-center">
+                              <a href="#" class="logo-login d-flex align-items-center w-auto">
+                                  <img :src="gambarUrl" alt="logo">
+                              </a>
+                          </div>
+                          <!-- End Logo -->
+                          <div class="card mb-3">
+                              <div class="card-body">
+                                  <div class="pt-4 pb-2">
+                                      <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
+                                      <p class="text-center small">Enter your personal number & password to login</p>
+                                  </div>
 
-<div class="w-full flex flex-col items-center justify-center px-6 pt-8 mx-auto pt:mt-0 dark:bg-gray-900">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
-        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Login With Your Account
-        </h2>
-    </div>
-	<!-- Card -->
-	<div class="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800">
-		<form class="mt-8 space-y-6" @submit.prevent="handleLogin">
-			<div>
-				<label for="personal_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Personal Number</label>
-				<input type="text" name="personal_number"  autocomplete id="personal_number" v-model="credential.personal_number" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 text-center" placeholder="6352XXX" required="">
-			</div>
-			<div>
-				<label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-				<input type="password"  autocomplete name="password" id="password" v-model="credential.password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 text-center" required="">
-			</div>
-			<div class="flex items-start flex-wrap">
-				<div class="flex items-center h-5">
-					<input id="remember" aria-describedby="remember" name="remember" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600 text-center" required="">
-				</div>
-				<div class="ml-3 text-sm">
-					<label for="remember" class="font-medium text-gray-900 dark:text-white">Remember me</label>
-				</div>
-			</div>
-			<button type="submit" class="w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-primary-300  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800">Login to your account</button>
-			<div class="text-sm font-medium text-gray-500 dark:text-gray-400">
-				Not registered? <a class="text-primary-700 hover:underline dark:text-primary-500">Create account</a>
-			</div>
-		</form>
-	</div>
-</div>
-</template>
+                                  <form class="row g-3 needs-validation" novalidate @submit.prevent="handleLogin">
+                                      <div class="col-12">
+                                          <label for="personalNumber" class="form-label">Personal Number</label>
+                                          <div class="input-group has-validation">
+                                              <input type="text" autocomplete="" name="personal_number" v-model="credential.personal_number" class="form-control text-center" placeholder="00710xxxx" id="personalNumber" required>
+                                              <div class="invalid-feedback">Please enter your personal number</div>
+                                          </div>
+                                      </div>
+
+                                      <div class="col-12">
+                                          <label for="yourPassword" class="form-label">Password</label>
+                                          <input type="password" name="password" class="form-control text-center" autocomplete="" v-model="credential.password" id="yourPassword" placeholder="**********" required>
+                                          <div class="invalid-feedback">Please enter your password!</div>
+                                      </div>
+
+                                      <div class="col-12">
+                                          <div class="form-check">
+                                              <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+                                              <label class="form-check-label" for="rememberMe">Remember me</label>
+                                          </div>
+                                      </div>
+                                      <div class="col-12">
+                                          <button class="btn btn-primary w-100" type="submit">Login</button>
+                                      </div>
+                                      <div class="col-12">
+                                          <p class="small mb-0">Don't have account? <a href="#">Call IT Suport</a></p>
+                                      </div>
+                                  </form>
+
+                              </div>
+                          </div>
+
+                          <div class="credits">
+                              Designed by <a href="https://bootstrapmade.com/">PT Bringin Gigantara CHM-ITM</a>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+
+          </section>
+
+      </div>
+  </main>
+  <!-- End #main -->
+  </template>
 
 
-<script>
-
+  <script>
   import {useRouter} from "vue-router";
-  import { useStore } from 'vuex';
-
+  import {useStore} from 'vuex';
+  import bgiLogo from '/public/assets/img/bgi_logo.png';
 
   export default {
-    name: "Login",
-    setup(){
-      const store = useStore()
-      const router  = useRouter();
+      name: "Login",
+      setup() {
+          const store = useStore()
+          const router = useRouter();
 
-      const credential = {
-          personal_number: '',
-          password: ''
-        };
+          const credential = {
+              personal_number: '',
+              password: ''
+          };
 
-      const handleLogin = ()=>{
-        store.dispatch('authLogin', credential)
-        .then(()=>{
-          router.push({
-            name:"Dashboard"
-          })
-          window.location.reload();
-        })
-        .catch(error => {
-            console.log(error);
-        });
-      };
+          const handleLogin = () => {
+            store.dispatch('authLogin', credential)
+            .then(() => {
+              router.push({
+                name: "Dashboard"
+              })
+            })
+          };
 
-      return {
-        credential,
-        handleLogin
-      }
-    },
-
+          return {
+              credential,
+              handleLogin,
+              gambarUrl: bgiLogo
+          }
+      },
   }
-
-</script>
+  </script>

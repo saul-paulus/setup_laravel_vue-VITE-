@@ -30,6 +30,7 @@ const store = createStore({
           }else{
             localStorage.removeItem('access_token')
             commit('loginFail');
+            window.location.reload();
             resolve(dataResponse);
           }
         })

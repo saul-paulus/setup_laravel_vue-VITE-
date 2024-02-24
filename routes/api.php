@@ -36,9 +36,11 @@ Route::middleware('jwtauth')->group(function() {
         Route::get('/gate/auth/user','AuthController@getUser');
     });
 
+    // Manage User
+    Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\MenageUser'], function () {
+        Route::get('/menage/users/list','UsersController@getUsers');
+    });
+
+
 });
 
-// Manajement User
-Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\MenageUser'], function () {
-    Route::get('/data/user_menage/user','UsersController@getUser');
-});
